@@ -1,4 +1,4 @@
-import 'package:guard_app/screens/user/incidents/showincidents.dart';
+import 'package:guard_app/screens/user/Incidents/showIncidents.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:guard_app/widgets/user_image_picker.dart';
@@ -58,8 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       );
       return;
-    }
-    else if (_selectedImage1 == null) {
+    } else if (_selectedImage1 == null) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -91,7 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
           .child('$date.jpg');
       await storageRef.putFile(_selectedImage1!);
       final imageUrl = await storageRef.getDownloadURL();
-      await FirebaseFirestore.instance.collection('incidents').add({
+      await FirebaseFirestore.instance.collection('Incidents').add({
         'title': _enteredtitle,
         'desc': _entereddesc,
         'image_url': imageUrl,
@@ -111,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         backgroundColor: Colors.teal[300],
         elevation: 4,
-        title: const Text('Complaints'),
+        title: const Text('Crate Report'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -142,7 +141,6 @@ class _ChatScreenState extends State<ChatScreen> {
                             _selectedImage1 = pickedImage;
                           },
                         ),
-
                         TextFormField(
                           decoration: const InputDecoration(labelText: 'Title'),
                           onSaved: (value) {
@@ -151,7 +149,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                         TextFormField(
                           decoration:
-                          const InputDecoration(labelText: 'Description'),
+                              const InputDecoration(labelText: 'Description'),
                           onSaved: (value) {
                             _entereddesc = value!;
                           },
@@ -161,7 +159,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           onPressed: _hello,
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                            Theme.of(context).colorScheme.primaryContainer,
+                                Theme.of(context).colorScheme.primaryContainer,
                           ),
                           child: const Text('Submit'),
                         ),
@@ -182,7 +180,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 backgroundColor: MaterialStateProperty.all(
                     const Color.fromARGB(255, 197, 249, 244)),
               ),
-              child: const Text('Click to see incidents reported'),
+              child: const Text('Click to see Incidents reported'),
             ),
           ],
         ),

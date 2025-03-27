@@ -15,16 +15,13 @@ class _HomePatrolState extends State<HomePatrol> {
       FirebaseFirestore.instance.collection('nfcTag');
   late Stream<QuerySnapshot> _streamIncidentsList;
 
-  Map<String, bool> rooms = {'key':false};
+  Map<String, bool> rooms = {'key': false};
 
-
-
-  void setRoom(String s){
+  void setRoom(String s) {
     setState(() {
-      rooms[s]=true;
+      rooms[s] = true;
     });
   }
-
 
   @override
   void initState() {
@@ -69,8 +66,6 @@ class _HomePatrolState extends State<HomePatrol> {
   //     },
   //   );
   // }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -117,24 +112,40 @@ class _HomePatrolState extends State<HomePatrol> {
                           children: [
                             Card(
                               child: ListTile(
-                                leading: (snapshot.data!.docs[index]['status'])?const CircleAvatar(backgroundColor: Colors.green,):
-                                const CircleAvatar(backgroundColor: Colors.red),
+                                  leading: (snapshot.data!.docs[index]
+                                          ['status'])
+                                      ? const CircleAvatar(
+                                          backgroundColor: Colors.green,
+                                        )
+                                      : const CircleAvatar(
+                                          backgroundColor: Colors.red),
                                   title: Text(
                                       snapshot.data!.docs[index]['tagName']),
-                                  subtitle:  Column(
+                                  subtitle: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      if(snapshot.data!.docs[index]['status']!=true)
+                                      if (snapshot.data!.docs[index]
+                                              ['status'] !=
+                                          true)
                                         const Text("Tap to Scan"),
-                                      if(snapshot.data!.docs[index]['status']==true)
-                                      const Text("Scanned!"),
+                                      if (snapshot.data!.docs[index]
+                                              ['status'] ==
+                                          true)
+                                        const Text("Scanned!"),
                                     ],
                                   ),
                                   onTap: () {
-                                    if(snapshot.data!.docs[index]['status']!=true) {
-                                      showDialog(context: context, builder:(BuildContext context){return NFCTest(setRoom,snapshot.data!.docs[index]['tagName']);} );
-
+                                    if (snapshot.data!.docs[index]['status'] !=
+                                        true) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return NFCTest(
+                                                setRoom,
+                                                snapshot.data!.docs[index]
+                                                    ['tagName']);
+                                          });
                                     }
                                   }),
                             ),

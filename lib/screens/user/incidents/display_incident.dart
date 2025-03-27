@@ -10,7 +10,7 @@ class ListIncidents extends StatefulWidget {
 
 class _ListIncidentsState extends State<ListIncidents> {
   final CollectionReference _getIncidents =
-  FirebaseFirestore.instance.collection('incidents');
+      FirebaseFirestore.instance.collection('Incidents');
   late Stream<QuerySnapshot> _streamIncidentsList;
 
   @override
@@ -47,88 +47,88 @@ class _ListIncidentsState extends State<ListIncidents> {
               Expanded(
                 child: snapshot.data!.docs.isEmpty
                     ? const Center(
-                    child: Text(
-                      "No pending Incidents.",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ))
+                        child: Text(
+                        "No pending Incidents.",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ))
                     : ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    docId.add(snapshot.data!.docs[index].id);
-                    print(docId[index]);
-                    return Center(
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Card(
-                            child: ListTile(
-                              title: Text(
-                                  snapshot.data!.docs[index]['title']),
-                              subtitle: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      snapshot.data!.docs[index]['date']),
-                                  const Text("Tap to view in detail")
-                                ],
-                              ),
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text(snapshot
-                                            .data!.docs[index]['title']),
-                                        content: Column(
-                                          children: [
-                                            Container(
-                                              alignment:
-                                              Alignment.topLeft,
-                                              child: Image.network(
-                                                  snapshot.data!
-                                                      .docs[index]
-                                                  ['image_url']),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(snapshot.data!
-                                                .docs[index]['desc']),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                                'Reported by:${snapshot.data!.docs[index]['username']}'),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                                'Reported on:${snapshot.data!.docs[index]['date']}'),
-                                          ],
-                                        ),
-                                        actions: [
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.of(context)
-                                                    .pop();
-                                              },
-                                              child: const Text("Ok")),
-                                        ],
-                                      );
-                                    });
-                              },
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          docId.add(snapshot.data!.docs[index].id);
+                          print(docId[index]);
+                          return Center(
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Card(
+                                  child: ListTile(
+                                    title: Text(
+                                        snapshot.data!.docs[index]['title']),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            snapshot.data!.docs[index]['date']),
+                                        const Text("Tap to view in detail")
+                                      ],
+                                    ),
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text(snapshot
+                                                  .data!.docs[index]['title']),
+                                              content: Column(
+                                                children: [
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Image.network(
+                                                        snapshot.data!
+                                                                .docs[index]
+                                                            ['image_url']),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(snapshot.data!
+                                                      .docs[index]['desc']),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(
+                                                      'Reported by:${snapshot.data!.docs[index]['username']}'),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                      'Reported on:${snapshot.data!.docs[index]['date']}'),
+                                                ],
+                                              ),
+                                              actions: [
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text("Ok")),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
             ],
           );

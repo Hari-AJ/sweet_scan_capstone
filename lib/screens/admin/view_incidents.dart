@@ -11,27 +11,24 @@ class ViewIncidents extends StatefulWidget {
 }
 
 class _ViewIncidentsState extends State<ViewIncidents> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal[300],
         elevation: 4,
-        title: const Text("Incident Reports"),
+        title: const Text("Crate Reports"),
       ),
       backgroundColor: const Color(0xFFB1DCDA),
       body: const Center(
-        child:  Column(
-          children: [
-            Expanded(
-              child: PendingIncidents(),
-            ),
-            Expanded(child: CompletedIncidents()),
-          ],
-        )
-      ),
+          child: Column(
+        children: [
+          Expanded(
+            child: PendingIncidents(),
+          ),
+          Expanded(child: CompletedIncidents()),
+        ],
+      )),
     );
   }
 }

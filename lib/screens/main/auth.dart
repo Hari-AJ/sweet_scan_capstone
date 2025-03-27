@@ -23,7 +23,6 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-
   final _form = GlobalKey<FormState>();
 
   var _isAdmin = true;
@@ -76,7 +75,6 @@ class _AuthScreenState extends State<AuthScreen> {
             maxHeight: MediaQuery.of(context).size.height,
             maxWidth: MediaQuery.of(context).size.width,
           ),
-
           child: Form(
             key: _form,
             child: Column(
@@ -93,7 +91,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Guard Patrolling App",
+                            "Sweet Scan",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 35.0,
@@ -153,33 +151,35 @@ class _AuthScreenState extends State<AuthScreen> {
                               _enteredEmail = value!;
                             },
                           ),
-                          const SizedBox(height: 10,),
-                          TextFormField(
-                            obscureText: true,
-                            validator: (value) {
-                              if (value == null) {
-                                return 'Invalid Password';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              _enteredPassword = value!;
-                            },
-                            keyboardType: TextInputType.visiblePassword,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide.none,
-                              ),
-                              filled: true,
-                              fillColor:const  Color(0xFFe7edeb),
-                              hintText: "Password",
-                              prefixIcon: Icon(
-                                Icons.key,
-                                color: Colors.grey[600],
-                              ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          obscureText: true,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Invalid Password';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _enteredPassword = value!;
+                          },
+                          keyboardType: TextInputType.visiblePassword,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            fillColor: const Color(0xFFe7edeb),
+                            hintText: "Password",
+                            prefixIcon: Icon(
+                              Icons.key,
+                              color: Colors.grey[600],
                             ),
                           ),
+                        ),
                         const SizedBox(height: 20.0),
                         if (_isAuthenticating)
                           const CircularProgressIndicator(),
@@ -213,7 +213,6 @@ class _AuthScreenState extends State<AuthScreen> {
                                   duration: Duration(seconds: 3),
                                 ));
                               }
-
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context)
@@ -224,8 +223,9 @@ class _AuthScreenState extends State<AuthScreen> {
                               'Login as Admin',
                             ),
                           ),
-                        if (!_isAdmin&&!_isAuthenticating)
-                          ElevatedButton(onPressed: _userSubmit,
+                        if (!_isAdmin && !_isAuthenticating)
+                          ElevatedButton(
+                              onPressed: _userSubmit,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context)
                                     .colorScheme
@@ -287,7 +287,7 @@ class _AuthScreenState extends State<AuthScreen> {
     //                       crossAxisAlignment: CrossAxisAlignment.start,
     //                       children: [
     //                         Text(
-    //                           "Guard Patrolling App",
+    //                           "Sweet Scan",
     //                           style: TextStyle(
     //                               color: Colors.white,
     //                               fontSize: 46.0,

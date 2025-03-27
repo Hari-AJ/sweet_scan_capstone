@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:guard_app/screens/user/incidents/display_incident.dart';
+import 'package:guard_app/screens/user/Incidents/display_incident.dart';
 
 class StateHome extends StatefulWidget {
   const StateHome({super.key});

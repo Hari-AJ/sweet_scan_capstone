@@ -3,7 +3,7 @@ import 'package:guard_app/screens/admin/guard_patrol_admin.dart';
 import 'package:guard_app/screens/main/auth.dart';
 import 'package:guard_app/screens/user/user_dashboard.dart';
 import 'package:guard_app/screens/loading/splash.dart';
-import 'package:guard_app/screens/admin/view_incidents.dart';
+import 'package:guard_app/screens/admin/view_Incidents.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,26 +46,23 @@ class _ActivePageState extends State<ActivePage> {
     adminPass();
   }
 
-
-
   void _changePass(String s) async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('admin').get();
     if (querySnapshot.size > 0) {
-
-      DocumentReference documentReference=FirebaseFirestore.instance.collection('admin').doc('adminPass');
-      documentReference.update({'pass':s});
+      DocumentReference documentReference =
+          FirebaseFirestore.instance.collection('admin').doc('adminPass');
+      documentReference.update({'pass': s});
       print("newpass change");
     } else {
       CollectionReference collectionRef =
-      FirebaseFirestore.instance.collection('admin');
+          FirebaseFirestore.instance.collection('admin');
       await collectionRef.doc('adminPass').set({'pass': s});
       print("newly set");
     }
-setState(() {
-  pass=s;
-});
-
+    setState(() {
+      pass = s;
+    });
   }
 
   void adminPage(String password) {
@@ -97,12 +94,11 @@ setState(() {
         '/viewIncidents': (context) => const ViewIncidents(),
         '/guardPatrol': (context) => const GuardPatrolAdmin(),
       },
-      title: 'Guard patrolling App',
+      title: 'Sweet Scan',
       theme: ThemeData().copyWith(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
       ),
-
       home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (ctx, snapshot) {

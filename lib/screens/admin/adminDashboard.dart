@@ -16,28 +16,21 @@ class AdminHome extends StatefulWidget {
 
   @override
   State<AdminHome> createState() => _AdminHomeState();
-
 }
 
-
-
 class _AdminHomeState extends State<AdminHome> {
-
-
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFB2DEDB),
-
       appBar: AppBar(
-        backgroundColor:Colors.teal ,
+        backgroundColor: Colors.teal,
         automaticallyImplyLeading: false,
         title: const Text(
           'Admin Home',
@@ -122,29 +115,28 @@ class _AdminHomeState extends State<AdminHome> {
                         },
                       ),
                       GestureDetector(
-                        child: itemDashboard('Users',
-                            CupertinoIcons.person_2_alt, Colors.green),
+                        child: itemDashboard(
+                            'Users', CupertinoIcons.person_2_alt, Colors.green),
                         onTap: () {
                           Navigator.pushNamed(context, '/users');
                         },
                       ),
                       GestureDetector(
-                        child: itemDashboard('Incidents',
+                        child: itemDashboard('Reports',
                             CupertinoIcons.envelope_fill, Colors.purple),
                         onTap: () {
                           Navigator.pushNamed(context, '/viewIncidents');
                         },
                       ),
                       GestureDetector(
-                        child: itemDashboard('Guard Tour', CupertinoIcons.search_circle,
-                            Colors.brown),
-                        onTap: (){
+                        child: itemDashboard('Crate Records',
+                            CupertinoIcons.search_circle, Colors.brown),
+                        onTap: () {
                           Navigator.pushNamed(context, '/guardPatrol');
                         },
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -166,7 +158,6 @@ class _AdminHomeState extends State<AdminHome> {
                   blurRadius: 5)
             ]),
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(

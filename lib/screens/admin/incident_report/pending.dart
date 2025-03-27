@@ -11,7 +11,7 @@ class PendingIncidents extends StatefulWidget {
 
 class _PendingIncidentsState extends State<PendingIncidents> {
   final CollectionReference _getIncidents =
-  FirebaseFirestore.instance.collection('incidents');
+      FirebaseFirestore.instance.collection('Incidents');
   late Stream<QuerySnapshot> _streamIncidentsList;
 
   @override
@@ -23,7 +23,7 @@ class _PendingIncidentsState extends State<PendingIncidents> {
 
   @override
   Widget build(BuildContext context) {
-    List<String>docId=[];
+    List<String> docId = [];
     return StreamBuilder<QuerySnapshot>(
       stream: _streamIncidentsList,
       builder: (ctx, snapshot) {
@@ -31,129 +31,143 @@ class _PendingIncidentsState extends State<PendingIncidents> {
           return Text("Error${snapshot.error}");
         }
         if (snapshot.connectionState == ConnectionState.active) {
-
           return Column(
             children: [
-              const SizedBox(height: 10,),
-              const Text("Pending",
-
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Pending",
                 style: TextStyle(
-
-                  color: Colors.black,
+                    color: Colors.black,
                     fontSize: 15,
-                    fontWeight: FontWeight.w600
-
-                ),
-
-
+                    fontWeight: FontWeight.w600),
               ),
               const SizedBox(
                 height: 10,
               ),
               Expanded(
-                child: snapshot.data!.docs.isEmpty?
-                const Center(child: Text("No pending Incidents",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-
-                )):ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    docId.add(snapshot.data!.docs[index].id);
-                    print(docId[index]);
-                    return Center(
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Card(
-                            child: ListTile(
-                              leading: const CircleAvatar(backgroundColor: Colors.red),
-                              title: Text(snapshot.data!.docs[index]['title']),
-                              subtitle:Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(snapshot.data!.docs[index]['date']),
-                                  const Text("Tap to view in detail")
-                                ],
-                              ) ,
-                              trailing: GestureDetector(
-                                onTap: ()  {
-                                  ScaffoldMessenger.of(context).clearSnackBars();
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                    content: const Text("Are you sure to mark this as Completed"),
-                                    duration: const Duration(seconds: 10),
-                                    action: SnackBarAction(
-                                      label: "YES",
-                                      onPressed: () async {
-                                        final DocumentSnapshot sourceDoc = await FirebaseFirestore.instance
-                                            .collection('incidents')
-                                            .doc( snapshot.data!.docs[index].id)
-                                            .get();
-                                        Map<String, dynamic> documentData = sourceDoc.data() as Map<String, dynamic>;
-                                        await FirebaseFirestore.instance
-                                            .collection('completed')
-                                            .doc( snapshot.data!.docs[index].id)
-                                            .set(documentData);
-                                        await FirebaseFirestore.instance
-                                            .collection("incidents")
-                                            .doc( snapshot.data!.docs[index].id)
-                                            .delete();
-                                      },
+                child: snapshot.data!.docs.isEmpty
+                    ? const Center(
+                        child: Text(
+                        "No pending Incidents",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ))
+                    : ListView.builder(
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          docId.add(snapshot.data!.docs[index].id);
+                          print(docId[index]);
+                          return Center(
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Card(
+                                  child: ListTile(
+                                    leading: const CircleAvatar(
+                                        backgroundColor: Colors.red),
+                                    title: Text(
+                                        snapshot.data!.docs[index]['title']),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            snapshot.data!.docs[index]['date']),
+                                        const Text("Tap to view in detail")
+                                      ],
                                     ),
-                                  ));
-
-                                },
-                                child: const Icon(Icons.done),
-                              ),
-                              onTap: (){
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title:
-                                        Text(snapshot.data!.docs[index]['title']),
-                                        content: Column(
-                                          children: [
-                                            Container(
-                                              alignment:
-                                              Alignment.topLeft,
-                                              child: Image.network(
-                                                  snapshot.data!
-                                                      .docs[index]
-                                                  ['image_url']),
-                                            ),
-                                            Text(snapshot.data!.docs[index]['desc']),
-                                            Text("Reported by:${snapshot.data!
-                                                .docs[index]['username']}"),
-                                            Text("Reported on:${snapshot.data!
-                                                .docs[index]['date']}"),
-                                          ],
-                                        ),
-                                        actions: [
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text("Ok")),
-                                        ],
-                                      );
-                                    });
-                              },
+                                    trailing: GestureDetector(
+                                      onTap: () {
+                                        ScaffoldMessenger.of(context)
+                                            .clearSnackBars();
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: const Text(
+                                              "Are you sure to mark this as Completed"),
+                                          duration: const Duration(seconds: 10),
+                                          action: SnackBarAction(
+                                            label: "YES",
+                                            onPressed: () async {
+                                              final DocumentSnapshot sourceDoc =
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection('Incidents')
+                                                      .doc(snapshot
+                                                          .data!.docs[index].id)
+                                                      .get();
+                                              Map<String, dynamic>
+                                                  documentData =
+                                                  sourceDoc.data()
+                                                      as Map<String, dynamic>;
+                                              await FirebaseFirestore.instance
+                                                  .collection('completed')
+                                                  .doc(snapshot
+                                                      .data!.docs[index].id)
+                                                  .set(documentData);
+                                              await FirebaseFirestore.instance
+                                                  .collection("Incidents")
+                                                  .doc(snapshot
+                                                      .data!.docs[index].id)
+                                                  .delete();
+                                            },
+                                          ),
+                                        ));
+                                      },
+                                      child: const Icon(Icons.done),
+                                    ),
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text(snapshot
+                                                  .data!.docs[index]['title']),
+                                              content: Column(
+                                                children: [
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Image.network(
+                                                        snapshot.data!
+                                                                .docs[index]
+                                                            ['image_url']),
+                                                  ),
+                                                  Text(snapshot.data!
+                                                      .docs[index]['desc']),
+                                                  Text(
+                                                      "Reported by:${snapshot.data!.docs[index]['username']}"),
+                                                  Text(
+                                                      "Reported on:${snapshot.data!.docs[index]['date']}"),
+                                                ],
+                                              ),
+                                              actions: [
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text("Ok")),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
             ],
           );
         }
-        return const Center(child:Text("Loading..."));
+        return const Center(child: Text("Loading..."));
       },
     );
   }
